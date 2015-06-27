@@ -1,8 +1,10 @@
 #!/bin/bash
 
-RED = '\033[0;31m'
-NC = '\033[0m'
-printf "${RED}WARNING: This potentially deletes branches! Only use it if you understand it.${NC}\n";
+echo "$(tput setaf 1)$(tput setab 7)"
+echo "WARNING: This potentially deletes branches! Only use it if you understand it."
+echo "Press Ctrl + C to cancel"
+echo "$(tput sgr 0)"
+sleep 3;
 
 # general update
 git fetch --all
