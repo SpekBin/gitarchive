@@ -11,8 +11,11 @@
     "authors": [
         {
             "name": "Peter Thaleikis",
-            "homepage": "https://github.com/spekulatius",
-            "role": "Project founder"
+            "homepage": "https://github.com/spekulatius"
+        },
+        {
+        "name": "Shoaib Ali",
+        "email": "shoaib@catalyst.net.nz"
         },
         {
             "name": "Other contributors",
