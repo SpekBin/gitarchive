@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# general update
+git fetch --all
+echo ''
+
+for branches in `git branch -r | sed -e 's/\*\// /g' | grep "^\s*origin/$1" | sed -e 's/origin\///g' | awk '{print $1}' | sort -u`; do echo $branches; done;
+
+echo "Would you like to archive all branches above? (y/N):"
+
+read CONTINUE_ARCHIVE_ALL
+if [ $CONTINUE_ARCHIVE_ALL == "y" -o $CONTINUE_ARCHIVE_ALL == "Y" ]; then
+		echo "Archive all branches ... "
+		# no further actions required - just jumps the single confirmation steps
+fi
+
+# run through all branches and match the list
+for lines in `git branch -r | sed -e 's/\*\// /g' | grep "^\s*origin/$1" | sed -e 's/origin\///g' | awk '{print $1}' | sort -u` ; do
+
+	# only ask single branches if we aren't archiving all at once
+	if [ $CONTINUE_ARCHIVE_ALL == "n" -o $CONTINUE_ARCHIVE_ALL == "N" ]; then
+		echo "Would you like to archive $lines (y/N):"
+		read CONTINUE_BRANCH_ARCHIVE
+	else
+		# archive all by default
+		CONTINUE_BRANCH_ARCHIVE="y"
+	fi
+
+	# should we archive this branch?
+	if [ $CONTINUE_BRANCH_ARCHIVE == "y" -o $CONTINUE_BRANCH_ARCHIVE == "Y" ]; then
+		echo 'Archive of '$lines' from current git repo'
+		echo ''
+
+		echo 'Making sure the branch is locally up to date'
+		git checkout $lines
+		git pull origin $lines		# to make sure all changes are in the current branch
+
+		echo 'Adding and pushing tag to origin'
+		git tag archive/$lines $lines
+		git push --tags
+
+		echo ''
+		git checkout master
+
+		echo ''
+		echo 'Delete branch locally and on the origin'
+		git branch -D $lines
+		git push origin :$lines
+	fi
+done

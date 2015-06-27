@@ -1,0 +1,23 @@
+{
+    "name": "spekulatius/gitarchive",
+    "description": "Archives one or multiple branches as git tags.",
+    "keywords": [
+        "git",
+        "archive",
+        "branch"
+    ],
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Peter Thaleikis",
+            "homepage": "https://github.com/spekulatius",
+            "role": "Project founder"
+        },
+        {
+            "name": "Other contributors",
+            "homepage": "https://github.com/spekulatius/gitarchive/graphs/contributors",
+            "role": "Contributors"
+        }
+    ]
+}
